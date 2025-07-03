@@ -1,6 +1,4 @@
-package com.rpg.entity;
-
-import com.rpg.MainFrame;
+package com.rpg.entity.person;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -10,7 +8,7 @@ import java.awt.geom.RoundRectangle2D;
  * @date 2025/7/3 9:20
  * @description
  */
-public class NPC extends GameEntity{
+public class NPC extends PersonEntity {
 
     private int blood;
 
@@ -32,18 +30,6 @@ public class NPC extends GameEntity{
         // 绘制边框
         g2d.setColor(Color.BLACK);
         g2d.draw(roundRectangle2D);
-        for (QiGong qiGong : MainFrame.qiGongList) {
-            if (this.getRectangle().intersects(qiGong.getRectangle())) {
-                this.blood -= qiGong.getPower();
-                qiGong.setY(qiGong.getY() - 10000);
-                MainFrame.removeList.add(qiGong);
-            }
-            if (this.getBlood() <= 0) {
-                this.setY(this.getY() - 10000);
-                MainFrame.removeList.add(this);
-            }
-        }
-
     }
 
 }

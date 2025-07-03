@@ -5,7 +5,7 @@ package com.rpg.enums;
  * @date 2025/7/3 9:25
  * @description
  */
-public enum OperateEnum {
+public enum DirectionEnum {
 
     UP("上"),
     DOWN("下"),
@@ -15,7 +15,7 @@ public enum OperateEnum {
 
     private String name;
 
-    OperateEnum(String name) {
+    DirectionEnum(String name) {
         this.name = name;
     }
 

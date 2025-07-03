@@ -1,6 +1,7 @@
-package com.rpg.entity;
+package com.rpg.entity.weapon.ability;
 
-import com.rpg.constant.QiGongConstant;
+import com.rpg.constant.weapon.ability.QiGongConstant;
+import com.rpg.enums.DirectionEnum;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -10,13 +11,15 @@ import java.awt.geom.RoundRectangle2D;
  * @date 2025/7/2 17:29
  * @description
  */
-public class QiGong extends GameEntity{
+public class QiGong extends AbilityEntity {
 
     private int status;
 
     private long generateTime;
 
     private int power;
+
+    private DirectionEnum direction;
 
     public int getStatus() {
         return status;
@@ -42,6 +45,14 @@ public class QiGong extends GameEntity{
         this.power = power;
     }
 
+    public DirectionEnum getDirection() {
+        return direction;
+    }
+
+    public void setDirection(DirectionEnum direction) {
+        this.direction = direction;
+    }
+
     @Override
     public void draw(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -51,17 +62,17 @@ public class QiGong extends GameEntity{
         // 绘制边框
         g2d.setColor(Color.BLACK);
         g2d.draw(roundRectangle2D);
-        if (status == 0) {
-            if (System.currentTimeMillis() - generateTime >= 3000L) {
+        if (this.getStatus() == 0) {
+            if (System.currentTimeMillis() - this.getGenerateTime() >= 3000L) {
                 this.setColor(Color.CYAN);
-                this.setWidth(QiGongConstant.weight * 3);
+                this.setWidth(QiGongConstant.width * 3);
                 this.setPower(QiGongConstant.power * 4);
-            } else if (System.currentTimeMillis() - generateTime >= 1000L) {
+            } else if (System.currentTimeMillis() - this.getGenerateTime() >= 1000L) {
                 this.setColor(Color.PINK);
-                this.setWidth(QiGongConstant.weight * 2);
+                this.setWidth(QiGongConstant.width * 2);
                 this.setPower(QiGongConstant.power * 2);
             }
-        } else if (status == 1) {
+        } else if (this.getStatus() == 1) {
             this.setY((int)(this.getY() - this.getSpeed()));
             this.setSpeed(this.getSpeed() + 0.5);
         }

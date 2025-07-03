@@ -1,4 +1,7 @@
-package com.rpg.entity;
+package com.rpg.entity.person;
+
+import com.rpg.entity.weapon.WeaponEntity;
+import com.rpg.enums.DirectionEnum;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -8,17 +11,7 @@ import java.awt.geom.RoundRectangle2D;
  * @date 2025/7/2 16:34
  * @description
  */
-public class User extends GameEntity {
-
-    private QiGong qiGong;
-
-    public QiGong getQiGong() {
-        return qiGong;
-    }
-
-    public void setQiGong(QiGong qiGong) {
-        this.qiGong = qiGong;
-    }
+public class User extends PersonEntity {
 
     @Override
     public void draw(Graphics g) {
