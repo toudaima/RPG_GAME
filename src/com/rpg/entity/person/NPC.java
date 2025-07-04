@@ -60,7 +60,6 @@ public class NPC extends PersonEntity {
         if (this.getRectangle().intersects(MainFrame.user.getRectangle())) {
             this.setX(this.getLastX());
             this.setY(this.getLastY());
-            System.out.println("撞上了");
         }
     }
 }

@@ -24,24 +24,28 @@ public class OperateUtil {
                 for (NPC npc : npcList) {
                     npc.setLastY(npc.getY());
                     npc.setY((int) (npc.getY() + speed));
+                    npc.impactCheck();
                 }
             }
             case DOWN -> {
                 for (NPC npc : npcList) {
                     npc.setLastY(npc.getY());
                     npc.setY((int) (npc.getY() - speed));
+                    npc.impactCheck();
                 }
             }
             case LEFT -> {
                 for (NPC npc : npcList) {
                     npc.setLastX(npc.getX());
                     npc.setX((int) (npc.getX() + speed));
+                    npc.impactCheck();
                 }
             }
             case RIGHT -> {
                 for (NPC npc : npcList) {
                     npc.setLastX(npc.getX());
                     npc.setX((int) (npc.getX() - speed));
+                    npc.impactCheck();
                 }
             }
 
