@@ -32,13 +32,12 @@ public class MainFrame extends JFrame {
 
     private Image flushImage;
 
-    User user = PersonCreateUtil.createUser(width / 2, height / 2, UserConstant.userWeight, UserConstant.userHeight, 5, this);
-    NPC npc = PersonCreateUtil.createNPC(width / 2 - UserConstant.userWeight / 2, 100, 30, 30, 1, this);
-
     public static List<GameEntity> objectList = new ArrayList<>();
-    public static List<PersonEntity> personEntityList = new ArrayList<>();
+    public static List<NPC> npcList = new ArrayList<>();
     public static List<AbilityEntity> abilityEntityList = new ArrayList<>();
     public static List<GameEntity> removeList = new ArrayList<>();
+
+    public static User user;
 
     public void launch() {
         this.setVisible(true);
@@ -47,9 +46,13 @@ public class MainFrame extends JFrame {
         this.setTitle("战斗爽");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.status = 0;
-        objectList.add(user);
+
+        User newUser = PersonCreateUtil.createUser(width / 2, height / 2, UserConstant.userWeight, UserConstant.userHeight, 5, this);
+        NPC npc = PersonCreateUtil.createNPC(width / 2 - UserConstant.userWeight / 2, 100, 30, 30, 1, this);
+        objectList.add(newUser);
         objectList.add(npc);
-        personEntityList.add(npc);
+        npcList.add(npc);
+        user = newUser;
         this.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER && status == 0) {
@@ -91,7 +94,7 @@ public class MainFrame extends JFrame {
         }
         g.drawImage(flushImage, 0, 0, null);
         objectList.removeAll(MainFrame.removeList);
-        personEntityList.removeAll(MainFrame.removeList);
+        npcList.removeAll(MainFrame.removeList);
         abilityEntityList.removeAll(MainFrame.removeList);
     }
 

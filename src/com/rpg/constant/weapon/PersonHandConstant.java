@@ -25,7 +25,22 @@ public class PersonHandConstant {
     public static final double speed = 0;
 
     /**
+     * 伤害值
+     */
+    public static final int power = 1;
+
+    /**
      * 初始颜色
      */
-    public static final Color originColor = new Color(255,160,122);
+    public static final Color originColor = new Color(252, 252, 252);
+
+    /**
+     * 蓄力一段颜色
+     */
+    public static final Color chargeOneColor = new Color(246, 246, 124);
+
+    /**
+     * 蓄满状态
+     */
+    public static final Color chargeMaxColor = new Color(255, 63, 0);
 }

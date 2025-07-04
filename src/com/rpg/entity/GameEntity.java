@@ -92,4 +92,6 @@ public class GameEntity {
     public Rectangle getRectangle() {
         return new Rectangle(x, y, width, height);
     }
+
+    public void impactCheck() {}
 }

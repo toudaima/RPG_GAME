@@ -36,25 +36,21 @@ public class PersonCreateUtil {
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_A -> {
-                        System.out.println("向左： " + user.getX());
                         user.setDirection(DirectionEnum.LEFT);
                         OperateUtil.operateNPC(DirectionEnum.LEFT, user.getSpeed());
                         OperateUtil.operateHands(DirectionEnum.LEFT, user);
                     }
                     case KeyEvent.VK_D -> {
-                        System.out.println("向右：" + user.getX());
                         user.setDirection(DirectionEnum.RIGHT);
                         OperateUtil.operateNPC(DirectionEnum.RIGHT, user.getSpeed());
                         OperateUtil.operateHands(DirectionEnum.RIGHT, user);
                     }
                     case KeyEvent.VK_W -> {
-                        System.out.println("向上：" + user.getY());
                         user.setDirection(DirectionEnum.UP);
                         OperateUtil.operateNPC(DirectionEnum.UP, user.getSpeed());
                         OperateUtil.operateHands(DirectionEnum.UP, user);
                     }
                     case KeyEvent.VK_S -> {
-                        System.out.println("向下：" + user.getY());
                         user.setDirection(DirectionEnum.DOWN);
                         OperateUtil.operateNPC(DirectionEnum.DOWN, user.getSpeed());
                         OperateUtil.operateHands(DirectionEnum.DOWN, user);
@@ -99,6 +95,8 @@ public class PersonCreateUtil {
         npc.setColor(Color.GREEN);
         npc.setX(x);
         npc.setY(y);
+        npc.setLastX(x);
+        npc.setLastY(y);
         npc.setWidth(weight);
         npc.setHeight(height);
         npc.setSpeed(speed);

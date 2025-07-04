@@ -1,5 +1,7 @@
 package com.rpg.entity.person;
 
+import com.rpg.MainFrame;
+
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
@@ -10,7 +12,27 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class NPC extends PersonEntity {
 
+    private int lastX;
+
+    private int lastY;
+
     private int blood;
+
+    public int getLastX() {
+        return lastX;
+    }
+
+    public void setLastX(int lastX) {
+        this.lastX = lastX;
+    }
+
+    public int getLastY() {
+        return lastY;
+    }
+
+    public void setLastY(int lastY) {
+        this.lastY = lastY;
+    }
 
     public int getBlood() {
         return blood;
@@ -30,6 +52,15 @@ public class NPC extends PersonEntity {
         // 绘制边框
         g2d.setColor(Color.BLACK);
         g2d.draw(roundRectangle2D);
+        impactCheck();
     }
 
+    @Override
+    public void impactCheck() {
+        if (this.getRectangle().intersects(MainFrame.user.getRectangle())) {
+            this.setX(this.getLastX());
+            this.setY(this.getLastY());
+            System.out.println("撞上了");
+        }
+    }
 }

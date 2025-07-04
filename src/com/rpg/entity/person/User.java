@@ -1,5 +1,6 @@
 package com.rpg.entity.person;
 
+import com.rpg.MainFrame;
 import com.rpg.entity.weapon.WeaponEntity;
 import com.rpg.enums.DirectionEnum;
 
@@ -22,5 +23,6 @@ public class User extends PersonEntity {
         // 绘制边框
         g2d.setColor(Color.BLACK);
         g2d.draw(roundRectangle2D);
+        impactCheck();
     }
 }

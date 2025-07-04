@@ -18,29 +18,29 @@ import java.util.List;
 public class OperateUtil {
 
     public static void operateNPC(DirectionEnum directionEnum, double speed) {
-        List<PersonEntity> npcList = MainFrame.personEntityList;
+        List<NPC> npcList = MainFrame.npcList;
         switch (directionEnum) {
             case UP -> {
-                for (PersonEntity npc : npcList) {
-                    System.out.println("npc位置：" + npc.getX() + "," + npc.getY());
+                for (NPC npc : npcList) {
+                    npc.setLastY(npc.getY());
                     npc.setY((int) (npc.getY() + speed));
                 }
             }
             case DOWN -> {
-                for (PersonEntity npc : npcList) {
-                    System.out.println("npc位置：" + npc.getX() + "," + npc.getY());
+                for (NPC npc : npcList) {
+                    npc.setLastY(npc.getY());
                     npc.setY((int) (npc.getY() - speed));
                 }
             }
             case LEFT -> {
-                for (PersonEntity npc : npcList) {
-                    System.out.println("npc位置：" + npc.getX() + "," + npc.getY());
+                for (NPC npc : npcList) {
+                    npc.setLastX(npc.getX());
                     npc.setX((int) (npc.getX() + speed));
                 }
             }
             case RIGHT -> {
-                for (PersonEntity npc : npcList) {
-                    System.out.println("npc位置：" + npc.getX() + "," + npc.getY());
+                for (NPC npc : npcList) {
+                    npc.setLastX(npc.getX());
                     npc.setX((int) (npc.getX() - speed));
                 }
             }
@@ -48,6 +48,11 @@ public class OperateUtil {
         }
     }
 
+    /**
+     * 左右手跟随
+     * @param directionEnum
+     * @param person
+     */
     public static void operateHands(DirectionEnum directionEnum, PersonEntity person) {
         final WeaponEntity leftHand = person.getLeftHand();
         final WeaponEntity rightHand = person.getRightHand();
@@ -105,4 +110,5 @@ public class OperateUtil {
 
         }
     }
+
 }

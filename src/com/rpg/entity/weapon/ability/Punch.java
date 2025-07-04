@@ -2,11 +2,15 @@ package com.rpg.entity.weapon.ability;
 
 
 import com.rpg.MainFrame;
+import com.rpg.constant.weapon.PersonHandConstant;
 import com.rpg.constant.weapon.ability.PunchConstant;
 import com.rpg.constant.weapon.ability.QiGongConstant;
+import com.rpg.entity.person.NPC;
+import com.rpg.entity.person.PersonEntity;
 import com.rpg.entity.weapon.PersonHand;
 import com.rpg.enums.AttackStatusEnum;
 import com.rpg.enums.DirectionEnum;
+import com.rpg.enums.HarmStatus;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -18,11 +22,9 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class Punch extends AbilityEntity {
 
-    private AttackStatusEnum status;
+    private HarmStatus harmStatus;
 
     private long generateTime;
-
-    private int power;
 
     private PersonHand personHand;
 
@@ -30,12 +32,12 @@ public class Punch extends AbilityEntity {
 
     private DirectionEnum direction;
 
-    public AttackStatusEnum getStatus() {
-        return status;
+    public HarmStatus getHarmStatus() {
+        return harmStatus;
     }
 
-    public void setStatus(AttackStatusEnum status) {
-        this.status = status;
+    public void setHarmStatus(HarmStatus harmStatus) {
+        this.harmStatus = harmStatus;
     }
 
     public long getGenerateTime() {
@@ -44,14 +46,6 @@ public class Punch extends AbilityEntity {
 
     public void setGenerateTime(long generateTime) {
         this.generateTime = generateTime;
-    }
-
-    public int getPower() {
-        return power;
-    }
-
-    public void setPower(int power) {
-        this.power = power;
     }
 
     public PersonHand getPersonHand() {
@@ -87,34 +81,44 @@ public class Punch extends AbilityEntity {
         // 绘制边框
         g2d.setColor(Color.BLACK);
         g2d.draw(roundRectangle2D);
-        if (this.status == AttackStatusEnum.ATTACK) {
-            switch (this.getDirection()) {
-                case UP -> {
-                    this.setY(this.getPersonHand().getY() - this.getPersonHand().getHeight() - (int)PunchConstant.speed);
-                }
-                case DOWN -> {
-                    this.setY(this.getPersonHand().getY() + (int)PunchConstant.speed);
-                }
-                case LEFT -> {
-                    this.setX(this.getPersonHand().getX() - this.getPersonHand().getHeight() - (int)PunchConstant.speed);
-                }
-                case RIGHT -> {
-                    this.setX(this.getPersonHand().getX() + (int)PunchConstant.speed);
-                }
+        switch (this.getDirection()) {
+            case UP -> {
+                this.setY(this.getPersonHand().getY() - this.getPersonHand().getHeight() - (int)PunchConstant.speed);
             }
-
-            if (this.getAttackTime() == 0L) {
-                this.setAttackTime(System.currentTimeMillis());
-            } else {
-                if (System.currentTimeMillis() - this.getAttackTime() >= 100L) {
-                    this.setY(this.getPersonHand().getY() + 100000);
-                    MainFrame.removeList.add(this);
-                }
+            case DOWN -> {
+                this.setY(this.getPersonHand().getY() + (int)PunchConstant.speed);
             }
+            case LEFT -> {
+                this.setX(this.getPersonHand().getX() - this.getPersonHand().getHeight() - (int)PunchConstant.speed);
+            }
+            case RIGHT -> {
+                this.setX(this.getPersonHand().getX() + (int)PunchConstant.speed);
+            }
+        }
 
-        } else if (this.status == AttackStatusEnum.CHARGE) {
-            if (System.currentTimeMillis() - this.getGenerateTime() >= 3000L) {
-                this.setColor(PunchConstant.chargeOneColor);
+        if (this.getAttackTime() == 0L) {
+            this.setAttackTime(System.currentTimeMillis());
+        } else {
+            if (System.currentTimeMillis() - this.getAttackTime() >= 100L) {
+                this.setY(this.getPersonHand().getY() + 100000);
+                MainFrame.removeList.add(this);
+            }
+        }
+        //碰撞检测
+        impactCheck();
+    }
+
+    @Override
+    public void impactCheck() {
+        for (NPC npc : MainFrame.npcList) {
+            if (this.getRectangle().intersects(npc.getRectangle())) {
+                if (this.getHarmStatus() == HarmStatus.EFFICIENT) {
+                    npc.setBlood(npc.getBlood() - this.getPersonHand().getPower());
+                    //防止攻击伤害重复计算
+                    this.setHarmStatus(HarmStatus.INVALID);
+                    //重置伤害
+                    this.getPersonHand().setPower(PersonHandConstant.power);
+                }
             }
         }
 

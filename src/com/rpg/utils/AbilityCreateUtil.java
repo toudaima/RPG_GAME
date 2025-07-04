@@ -8,6 +8,7 @@ import com.rpg.entity.weapon.ability.Punch;
 import com.rpg.entity.weapon.ability.QiGong;
 import com.rpg.enums.AttackStatusEnum;
 import com.rpg.enums.DirectionEnum;
+import com.rpg.enums.HarmStatus;
 
 import java.awt.*;
 
@@ -33,9 +34,16 @@ public class AbilityCreateUtil {
         return qiGong;
     }
 
+    /**
+     * 生成拳头
+     * @param x
+     * @param y
+     * @param personHand
+     * @return
+     */
     public static Punch createPunch(int x, int y, PersonHand personHand) {
         Punch punch = new Punch();
-        punch.setColor(PunchConstant.originColor);
+        punch.setColor(personHand.getColor());
         punch.setX(x);
         punch.setY(y);
         if (personHand.getDirection() == DirectionEnum.LEFT || personHand.getDirection() == DirectionEnum.RIGHT) {
@@ -47,12 +55,11 @@ public class AbilityCreateUtil {
         }
 
         punch.setSpeed(PunchConstant.speed);
-        punch.setPower(PunchConstant.power);
         punch.setMainFrame(personHand.getMainFrame());
-        punch.setStatus(AttackStatusEnum.CHARGE);
         punch.setGenerateTime(System.currentTimeMillis());
         punch.setPersonHand(personHand);
         punch.setDirection(personHand.getDirection());
+        punch.setHarmStatus(HarmStatus.EFFICIENT);
         return punch;
     }
 }

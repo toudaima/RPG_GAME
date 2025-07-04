@@ -8,4 +8,5 @@ import com.rpg.entity.GameEntity;
  * @description
  */
 public class AbilityEntity extends GameEntity {
+
 }
