@@ -4,6 +4,7 @@ import com.rpg.constant.person.UserConstant;
 import com.rpg.entity.GameEntity;
 import com.rpg.entity.person.NPC;
 import com.rpg.entity.person.PersonEntity;
+import com.rpg.entity.task.NPCMoveTask;
 import com.rpg.entity.weapon.ability.AbilityEntity;
 import com.rpg.entity.weapon.ability.QiGong;
 import com.rpg.entity.person.User;
@@ -80,9 +81,9 @@ public class MainFrame extends JFrame {
             graphics.setColor(Color.WHITE);
             graphics.setFont(new Font("宋体", Font.BOLD, 20));
             graphics.drawString("点击开始", 550, 400);
-
         }
         else if (status == 1) {
+            NPCMoveTask.start();
             graphics.setColor(Color.BLACK);
             graphics.fillRect(0, 0, this.getWidth(), this.getHeight());
 //            g.setColor(Color.WHITE);
